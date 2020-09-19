@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TableColumn({movie}: any) {
+export default function TableRow({movie}: any) {
 	return (
 		<tr>
 			<td>{movie.id}</td>

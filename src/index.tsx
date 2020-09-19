@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import './App.css';
+import './index.css';
 import moviesJSON from './movies.json';
 import TableFrame from './TableFrame';
 
 const initialState = {
-  moviesDB: moviesJSON
+  moviesDB: moviesJSON,
+  sortByColumn: "title"
 };
 
 const reducer = (state:any = initialState, action:any) => {

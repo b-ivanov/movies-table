@@ -1,31 +1,41 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import MovieRecord from './interfaces'
-import TableColumn from './TableColumn';
+import TableHeader from './TableHeader';
+import TableRow from './TableRow';
 
 class TableFrame extends React.Component {
 	render () {
 		const props:any = this.props;
 		if (props.moviesDB.length === 0) {
-			return (<div>No records to show!</div>);
+			return <div>No records to show!</div>;
 		} else {
+			const fields:any = Object.keys(props.moviesDB[0]);
+			const columnForSort:string = props.sortByColumn;
+			let item:{
+				name:string,
+				isSortColumn:boolean
+			};
 			return (
 				<>
 					<table>
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Title</th>
-								<th>Director</th>
-								<th>Distributor</th>
-								<th>IMDB rating</th>
-								<th>IMDB votes</th>
+								{
+									fields.map((name:string) => {
+										item = {
+											name: name,
+											isSortColumn: (name === columnForSort)
+										};
+										return <TableHeader key={name} header={item}/>
+									})
+								}
 							</tr>
 						</thead>
 						<tbody>
 						{
 							props.moviesDB.map((record: MovieRecord) => {
-								return <TableColumn key={'id_' + record.id} movie={record}/>
+								return <TableRow key={'id_' + record.id} movie={record}/>
 							})
 						}
 						</tbody>
@@ -38,7 +48,8 @@ class TableFrame extends React.Component {
 };
 
 const mapStateToProps = (state:any) => ({
-	moviesDB: state.moviesDB
+	moviesDB: state.moviesDB,
+	sortByColumn: state.sortByColumn
 })
 
 export default connect(mapStateToProps)(TableFrame);
