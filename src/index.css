@@ -9,3 +9,11 @@
 .tableFrame th.selectedForSortZA {
 	background-color: red;
 }
+
+.tableFrame th input.textFilter {
+	width: 95%;
+}
+
+.tableFrame th input.numberFilter {
+	width: 40px;
+}

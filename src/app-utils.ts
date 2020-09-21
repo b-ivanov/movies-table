@@ -1,8 +1,32 @@
+/* eslint-disable no-new-func */
+import FilterObject from './inerfaces/FilterObject'
+import FilterNumberProperty from './inerfaces/FilterNumberProperty'
+import FilterStringProperty from './inerfaces/FilterStringProperty'
+
 const AppUtils:any = {
 	mapStateToProps: (state:any) => ({
 		moviesDB: state.moviesDB,
 		sortByColumn: state.sortByColumn
 	}),
+
+	prettifyHeaderName: (uglyName:string) => {
+		let prettyName:string = uglyName;
+		if (uglyName === "id") {
+			prettyName = "#";
+		}
+		if (uglyName.indexOf("imdb_") > -1) {
+			prettyName = uglyName.replace("imdb_", "IMDB ");
+		}
+		return prettyName;
+	},
+
+	getPropertyType: (property:string) => {
+		if (property.match(/title|director|distributor/gim)) {
+			return "string";
+		} else {
+			return "number";
+		}
+	},
 	
 	dynamicSort: (property:string, isStringCompare:boolean) => {
 		if (property) {
@@ -28,6 +52,31 @@ const AppUtils:any = {
 		} else {
 			return 0;
 		}
+	},
+
+	dynamicFilter: (filters:FilterObject|any) => {
+		let functionBody:string[] = [];
+		let element:FilterNumberProperty|FilterStringProperty;
+		for (const key in filters) {
+			if (Object.prototype.hasOwnProperty.call(filters, key)) {
+				element = filters[key];
+				if (element.type === "number" && typeof element.val === "number") {
+					if (key.indexOf("max") >= 0) {
+						functionBody.push("movie." + element.property + " <= " + element.val);
+					} else {
+						functionBody.push("movie." + element.property + " >= " + element.val);
+					}
+				}
+				if (element.type === "string" && element.val) {
+					functionBody.push("movie." + element.property + ".toString().toLowerCase().indexOf('" + element.val.toString().toLowerCase() + "') >= 0");
+				}
+			}
+		}
+		if (functionBody.length === 0) {
+			functionBody = ["true"]
+		}
+		const filterFunction:any = new Function("movie", "return " + functionBody.join(" && ") + ";");
+		return filterFunction;
 	}
 };
 
