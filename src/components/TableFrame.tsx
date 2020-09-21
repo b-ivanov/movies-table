@@ -12,24 +12,10 @@ class TableFrame extends React.Component {
 		}
 	};
 
-	claearFilters () {
-		const tableRowInputs:any = document.body.querySelectorAll("input");
-		for (const key in tableRowInputs) {
-			if (Object.prototype.hasOwnProperty.call(tableRowInputs, key)) {
-				tableRowInputs[key].value = "";
-			}
-		}
-		const props:any = this.props;
-		props.dispatch({ 
-			type: "CLEAR_FILTER_TABLE"
-		});
-	};
-
 	render () {
 		const props:any = this.props;
 		return (
 			<>
-				<button onClick={() => {this.claearFilters()}}>Clear filters</button>
 				<table className="tableFrame">
 					<thead>
 						<HeaderRow />

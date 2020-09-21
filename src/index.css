@@ -1,13 +1,36 @@
+.tableFrame {
+	border-collapse: separate;
+	border-spacing: 0px 2px;
+}
+
 .tableFrame th {
 	text-transform: capitalize;
+	vertical-align: bottom;
+	text-align: left;
+	position: sticky;
+	top: 0;
+	background-color: #FFF;
+}
+
+.tableFrame th svg {
+	vertical-align: middle;
+	fill: #DDD;
 }
 
 .tableFrame th.selectedForSortAZ {
 	background-color: yellow;
 }
 
+.tableFrame th.selectedForSortAZ svg .upArrow {
+	fill: #000;
+}
+
 .tableFrame th.selectedForSortZA {
 	background-color: red;
+}
+
+.tableFrame th.selectedForSortZA svg .downArrow {
+	fill: #000;
 }
 
 .tableFrame th input.textFilter {
@@ -16,4 +39,12 @@
 
 .tableFrame th input.numberFilter {
 	width: 40px;
+}
+
+.tableFrame tr.recordRow:hover td.recordActions, .tableFrame td.recordActions:hover {
+	display: table-cell;
+}
+
+.tableFrame td.recordActions {
+	display: none;
 }
