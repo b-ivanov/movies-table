@@ -1,7 +1,7 @@
 interface MovieRecord
 {
 	id: number,
-	title: string | number,
+	title: string,
 	director: string,
 	distributor: string,
 	imdb_rating: number,

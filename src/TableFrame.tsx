@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import MovieRecord from './interfaces'
-import TableHeader from './TableHeader';
 import TableRow from './TableRow';
+import HeaderRow from './HeaderRow';
+import AppUtils from './app-utils';
 
 class TableFrame extends React.Component {
 	render () {
@@ -10,32 +11,16 @@ class TableFrame extends React.Component {
 		if (props.moviesDB.length === 0) {
 			return <div>No records to show!</div>;
 		} else {
-			const fields:any = Object.keys(props.moviesDB[0]);
-			const columnForSort:string = props.sortByColumn;
-			let item:{
-				name:string,
-				isSortColumn:boolean
-			};
 			return (
 				<>
-					<table>
+					<table className="tableFrame">
 						<thead>
-							<tr>
-								{
-									fields.map((name:string) => {
-										item = {
-											name: name,
-											isSortColumn: (name === columnForSort)
-										};
-										return <TableHeader key={name} header={item}/>
-									})
-								}
-							</tr>
+							<HeaderRow />
 						</thead>
 						<tbody>
 						{
 							props.moviesDB.map((record: MovieRecord) => {
-								return <TableRow key={'id_' + record.id} movie={record}/>
+								return <TableRow key={'id_' + record.id} movie={record} />
 							})
 						}
 						</tbody>
@@ -47,9 +32,4 @@ class TableFrame extends React.Component {
 	}
 };
 
-const mapStateToProps = (state:any) => ({
-	moviesDB: state.moviesDB,
-	sortByColumn: state.sortByColumn
-})
-
-export default connect(mapStateToProps)(TableFrame);
+export default connect(AppUtils.mapStateToProps)(TableFrame);

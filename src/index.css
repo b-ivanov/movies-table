@@ -1,3 +1,11 @@
-th.selectedForSort {
+.tableFrame th {
+	text-transform: capitalize;
+}
+
+.tableFrame th.selectedForSortAZ {
 	background-color: yellow;
+}
+
+.tableFrame th.selectedForSortZA {
+	background-color: red;
 }
