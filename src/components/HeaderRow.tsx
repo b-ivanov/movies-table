@@ -3,7 +3,9 @@ import {connect} from 'react-redux';
 import AppUtils from '../app-utils';
 import FilterObject from '../inerfaces/FilterObject';
 
+/**The HeaderRow component renders the header cells of the table */
 class HeaderRow extends React.Component {
+	/**Calls dispatch for sorting the table by a given property */
 	toggleSort (columnName:string) {
 		const props:any = this.props;
 		if (props.sortByColumn === columnName) {
@@ -15,6 +17,7 @@ class HeaderRow extends React.Component {
 		});
 	};
 
+	/**Calls dispatch for filtering the table by a given set of properties */
 	toggleFilter (event:any) {
 		const tableRowInputs:{}[] = event.target.parentNode.parentNode.querySelectorAll("input");
 		const props:any = this.props;
@@ -39,19 +42,7 @@ class HeaderRow extends React.Component {
 		});
 	};
 
-	filterInput (property:string) {
-		const isText:boolean = (AppUtils.getPropertyType(property) === "string");
-		if (isText) {
-			return <input placeholder="name" className="textFilter" name={property} type="text" onChange={(event:any) => {this.toggleFilter(event)}}/>
-		} else {
-			return (<>
-				<input placeholder="min" className="numberFilter" name={property + "_min"} type="number" min="0" onChange={(event:any) => {this.toggleFilter(event)}}/>
-				-
-				<input placeholder="max" className="numberFilter" name={property + "_max"} type="number" min="0" onChange={(event:any) => {this.toggleFilter(event)}}/>
-			</>)
-		}
-	};
-
+	/**Calls dispatch for displaying the form to create aa new record */
 	createNewRecord () {
 		const props:any = this.props;
 		props.dispatch({ 
@@ -61,6 +52,7 @@ class HeaderRow extends React.Component {
 		});
 	};
 
+	/**Calls dispatch for clearing the applied filters on the table */
 	claearFilters () {
 		const tableRowInputs:any = document.body.querySelectorAll("input");
 		for (const key in tableRowInputs) {
@@ -74,6 +66,21 @@ class HeaderRow extends React.Component {
 		});
 	};
 
+	/**Returns input elements depending on a given type */
+	filterInput (property:string) {
+		const isText:boolean = (AppUtils.getPropertyType(property) === "string");
+		if (isText) {
+			return <input placeholder="name" className="textFilter" name={property} type="text" onChange={(event:any) => {this.toggleFilter(event)}}/>
+		} else {
+			return (<>
+				<input placeholder="min" className="numberFilter" name={property + "_min"} type="number" min="0" onChange={(event:any) => {this.toggleFilter(event)}}/>
+				-
+				<input placeholder="max" className="numberFilter" name={property + "_max"} type="number" min="0" onChange={(event:any) => {this.toggleFilter(event)}}/>
+			</>)
+		}
+	};
+	
+	/**Component render function */
 	render () {
 		const props:any = this.props;
 		let fields:string[] = ["title", "director", "distributor", "imdb_rating", "imdb_votes"];

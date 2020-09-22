@@ -9,6 +9,7 @@ import TableFrame from './components/TableFrame';
 import NewRecordForm from './components/NewRecordForm';
 import AppUtils from './app-utils';
 
+/**Initial state of the Redux store */
 const initialState = {
   moviesDB: moviesJSON,
   sortByColumn: "title",
@@ -17,16 +18,15 @@ const initialState = {
   showForm: false,
   recordIndexForEdit: null
 };
-
 let _allRecords:any = moviesJSON;
-
+/**Reducer function for the Redux store */
 const reducer = (state:any = initialState, action:any) => {
+	const isString:boolean = (AppUtils.getPropertyType(state.sortByColumn) === "string" ? true : false);
 	switch (action.type) {
-		case "SORT_TABLE":
+		case "SORT_TABLE": //action for sorting the table
 			if (action.sortByColumn) {
 				const newSortColumn:string = action.sortByColumn;
 				let newSort:MovieRecord[] = state.moviesDB;
-				const isString:boolean = (AppUtils.getPropertyType(newSortColumn) === "string" ? true : false);
 				newSort.sort(AppUtils.dynamicSort(newSortColumn, isString));
 				return {
 					moviesDB: newSort,
@@ -38,7 +38,7 @@ const reducer = (state:any = initialState, action:any) => {
 				};
 			}
 			break;
-		case "FILTER_TABLE":
+		case "FILTER_TABLE": //action for filtering the table
 			if (action.filterObject) {
 				const filter:any = AppUtils.dynamicFilter(action.filterObject);
 				const filteredDB:MovieRecord[] = _allRecords.filter(filter);
@@ -54,7 +54,7 @@ const reducer = (state:any = initialState, action:any) => {
 				};
 			}
 			break;
-		case "CLEAR_FILTER_TABLE":
+		case "CLEAR_FILTER_TABLE": //action for clearing the filters, applied to the table
 			return {
 				moviesDB: _allRecords,
 				sortByColumn: state.sortByColumn,
@@ -63,7 +63,7 @@ const reducer = (state:any = initialState, action:any) => {
 				showForm: false,
 				recordIndexForEdit: null
 			};
-		case "CHANGE_PAGE":
+		case "CHANGE_PAGE": //action for changing the page
 			if (action.newPageNum) {
 				return {
 					moviesDB: state.moviesDB,
@@ -75,7 +75,7 @@ const reducer = (state:any = initialState, action:any) => {
 				};
 			}
 			break;
-		case "TOGGLE_FORM_DISPLAY":
+		case "TOGGLE_FORM_DISPLAY": //action for showing or hiding the form
 			return {
 				moviesDB: state.moviesDB,
 				sortByColumn: state.sortByColumn,
@@ -84,11 +84,10 @@ const reducer = (state:any = initialState, action:any) => {
 				showForm: action.showForm,
 				recordIndexForEdit: action.recordIndexForEdit
 			};
-		case "RECORD_CREATE":
+		case "RECORD_CREATE": //action for creating a new record
 			if (action.recordUpdate) {
 				_allRecords = _allRecords.concat(action.recordUpdate);
 				let movies:any = state.moviesDB.concat(action.recordUpdate);
-				const isString:boolean = (AppUtils.getPropertyType(state.sortByColumn) === "string" ? true : false);
 				movies.sort(AppUtils.dynamicSort(state.sortByColumn, isString));
 				return {
 					moviesDB: movies,
@@ -100,11 +99,13 @@ const reducer = (state:any = initialState, action:any) => {
 				};
 			}
 			break;
-		case "RECORD_UPDATE":
+		case "RECORD_UPDATE": //action for updating an exisitng record
 			if (action.recordUpdate) {
-				state.moviesDB[state.recordIndexForEdit] = action.recordUpdate;
+				let movies:any = state.moviesDB;
+				movies[state.recordIndexForEdit] = action.recordUpdate;
+				movies.sort(AppUtils.dynamicSort(state.sortByColumn, isString));
 				return {
-					moviesDB: state.moviesDB,
+					moviesDB: movies,
 					sortByColumn: state.sortByColumn,
 					currentPage: state.currentPage,
 					recordsPerPage: state.recordsPerPage,
@@ -113,7 +114,7 @@ const reducer = (state:any = initialState, action:any) => {
 				};
 			}
 			break;
-		case "DELETE_RECORD":
+		case "DELETE_RECORD": //action for deleting record
 			if (action.recordIndex >= 0) {
 				let movies:any[] = state.moviesDB;
 				movies = movies.filter((elem, index) => {
@@ -135,12 +136,15 @@ const reducer = (state:any = initialState, action:any) => {
 	return state;
 }
 
+/**Creating the Redux store */
 const store = createStore(reducer);
+/**Initially sorting the table on load */
 store.dispatch({
 	type: "SORT_TABLE",
 	sortByColumn: initialState.sortByColumn
 });
 
+/**Main component render function */
 const App = () => (
 	<Provider store={store}>
 		<NewRecordForm />

@@ -3,7 +3,9 @@ import {connect} from 'react-redux';
 import AppUtils from '../app-utils';
 import MovieRecord from '../inerfaces/MovieRecord';
 
+/**The TableRows component renders each row in the table */
 class TableRows extends React.Component {
+	/**Calls dispatch for deleting a record */
 	deleteRecord (movie:MovieRecord) {
 		const props:any = this.props;
 		const recordIndex:number = AppUtils.getIndexOfRecord(props.moviesDB, "id", movie.id);
@@ -16,6 +18,7 @@ class TableRows extends React.Component {
 		}
 	};
 
+	/**Calls dispatch for displaying the form with a given record */
 	editRecord (movieID:number) {
 		const props:any = this.props;
 		const recordIndex:number = AppUtils.getIndexOfRecord(props.moviesDB, "id", movieID);
@@ -26,6 +29,7 @@ class TableRows extends React.Component {
 		});
 	};
 	
+	/**Component render function */
 	render () {
 		const props:any = this.props;
 		const startIndex:number = (props.recordsPerPage * (props.currentPage - 1));

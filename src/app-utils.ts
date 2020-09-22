@@ -3,7 +3,10 @@ import FilterObject from './inerfaces/FilterObject'
 import FilterNumberProperty from './inerfaces/FilterNumberProperty'
 import FilterStringProperty from './inerfaces/FilterStringProperty'
 
+/**A simple namespace, containing functions used in the components */
 const AppUtils:any = {
+
+	/**Translates from state to props */
 	mapStateToProps: (state:any) => ({
 		moviesDB: state.moviesDB,
 		sortByColumn: state.sortByColumn,
@@ -13,6 +16,7 @@ const AppUtils:any = {
 		recordIndexForEdit: state.recordIndexForEdit
 	}),
 
+	/**Makes header texts pretty */
 	prettifyHeaderName: (uglyName:string) => {
 		let prettyName:string = uglyName;
 		if (uglyName === "id") {
@@ -24,6 +28,7 @@ const AppUtils:any = {
 		return prettyName;
 	},
 
+	/**Returns the type of a given property */
 	getPropertyType: (property:string) => {
 		if (property.match(/title|director|distributor/gim)) {
 			return "string";
@@ -32,6 +37,7 @@ const AppUtils:any = {
 		}
 	},
 	
+	/**Returns a sorting function by a given property */
 	dynamicSort: (property:string, isStringCompare:boolean) => {
 		if (property) {
 			let sortOrder:number = 1;
@@ -58,6 +64,7 @@ const AppUtils:any = {
 		}
 	},
 
+	/**Returns a filter function by a given set of properties */
 	dynamicFilter: (filters:FilterObject|any) => {
 		let functionBody:string[] = [];
 		let element:FilterNumberProperty|FilterStringProperty;
@@ -83,6 +90,7 @@ const AppUtils:any = {
 		return filterFunction;
 	},
 
+	/**Returns the index of a given record, specified by a dynamic property. If the record is not found, returns -1 */
 	getIndexOfRecord: (collection:any[], key:string, val:any) => {
 		for (let index = 0; index < collection.length; index++) {
 			if (collection[index][key] === val) {

@@ -3,11 +3,14 @@ import {connect} from 'react-redux';
 import AppUtils from '../app-utils';
 import MovieRecord from '../inerfaces/MovieRecord';
 
+/**The NewRecordForm component renders a form for creating and editin records */
 class NewRecordForm extends React.Component {
+	/**Removes the red border from an input field */
 	removeRedBorder (ev:any) {
 		ev.target.style.boder = "";
 	};
 
+	/**Reads all feilds in the form and validates them. If errors are found a corresponding message appears */
 	getFormData (checkForDuplicate:boolean) {
 		let recordObj:any = {};
 		let inputs:any = document.querySelectorAll("form.recordEditForm input");
@@ -41,6 +44,7 @@ class NewRecordForm extends React.Component {
 		}
 	};
 	
+	/**Calls dispatch for hiding the form */
 	closeForm () {
 		const props:any = this.props;
 		props.dispatch({ 
@@ -49,6 +53,7 @@ class NewRecordForm extends React.Component {
 		});
 	};
 
+	/**Calls dispatch for creating or changing a record to the table */
 	submitNewData (event:any, recordIndex:number) {
 		event.preventDefault();
 		const props:any = this.props;
@@ -72,7 +77,8 @@ class NewRecordForm extends React.Component {
 			}
 		}
 	};
-	
+
+	/**Component render function */
 	render () {
 		const props:any = this.props;
 		if (props.showForm) {
