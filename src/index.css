@@ -1,6 +1,7 @@
 .tableFrame {
 	border-collapse: separate;
 	border-spacing: 0px 2px;
+	width: 100%;
 }
 
 .tableFrame th {
@@ -47,4 +48,15 @@
 
 .tableFrame td.recordActions {
 	display: none;
+}
+
+.numOfRecordsHolder {
+	float: left;
+	width: 50%;
+}
+
+.pageNavigation {
+	float: right;
+	text-align: right;
+	width: 50%;
 }

@@ -10,7 +10,9 @@ import AppUtils from './app-utils';
 
 const initialState = {
   moviesDB: moviesJSON,
-  sortByColumn: "id"
+  sortByColumn: "title",
+  currentPage: 1,
+  recordsPerPage: 20
 };
 
 const reducer = (state:any = initialState, action:any) => {
@@ -23,7 +25,9 @@ const reducer = (state:any = initialState, action:any) => {
 				newSort.sort(AppUtils.dynamicSort(newSortColumn, isString));
 				return {
 					moviesDB: newSort,
-					sortByColumn: newSortColumn
+					sortByColumn: newSortColumn,
+					currentPage: state.currentPage,
+					recordsPerPage: state.recordsPerPage
 				};
 			}
 			break;
@@ -35,15 +39,29 @@ const reducer = (state:any = initialState, action:any) => {
 				filteredDB.sort(AppUtils.dynamicSort(state.sortByColumn, isString));
 				return {
 					moviesDB: filteredDB,
-					sortByColumn: state.sortByColumn
+					sortByColumn: state.sortByColumn,
+					currentPage: 1,
+					recordsPerPage: state.recordsPerPage
 				};
 			}
 			break;
 		case "CLEAR_FILTER_TABLE":
 			return {
 				moviesDB: moviesJSON,
-				sortByColumn: state.sortByColumn
+				sortByColumn: state.sortByColumn,
+				currentPage: state.currentPage,
+				recordsPerPage: state.recordsPerPage
 			};
+		case "CHANGE_PAGE":
+			if (action.newPageNum) {
+				return {
+					moviesDB: moviesJSON,
+					sortByColumn: state.sortByColumn,
+					currentPage: action.newPageNum,
+					recordsPerPage: state.recordsPerPage
+				};
+			}
+			break;
 		default:
 			return state;
 	}
@@ -51,17 +69,11 @@ const reducer = (state:any = initialState, action:any) => {
 }
 
 const store = createStore(reducer);
-//store.dispatch({ type: "CLEAR_FILTER_TABLE" });
-/*store.dispatch({ 
-	type: "FILTER_TABLE",
-	filterObject: {
-			imdb_votes_min: {
-			type: "number",
-			val: 100000,
-			property: "imdb_votes"
-		}
-	}
-});*/
+store.dispatch({
+	type: "SORT_TABLE",
+	sortByColumn: initialState.sortByColumn
+});
+
 const App = () => (
 	<Provider store={store}>
 		<TableFrame />

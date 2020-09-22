@@ -6,7 +6,9 @@ import FilterStringProperty from './inerfaces/FilterStringProperty'
 const AppUtils:any = {
 	mapStateToProps: (state:any) => ({
 		moviesDB: state.moviesDB,
-		sortByColumn: state.sortByColumn
+		sortByColumn: state.sortByColumn,
+		currentPage: state.currentPage,
+		recordsPerPage: state.recordsPerPage
 	}),
 
 	prettifyHeaderName: (uglyName:string) => {

@@ -9,11 +9,37 @@ class TableFrame extends React.Component {
 		const props:any = this.props;
 		if (props.moviesDB.length !== 0) {
 			return <TableRows />
+		} else {
+			return "";
+		}
+	};
+
+	incrementPage (maxPages:number) {
+		const props:any = this.props;
+		const nextPage:number = props.currentPage + 1;
+		if (nextPage <= maxPages) {
+			props.dispatch({
+				type: "CHANGE_PAGE",
+				newPageNum: nextPage
+			});
+		}
+	};
+
+	decrementPage () {
+		const props:any = this.props;
+		const prevPage:number = props.currentPage - 1;
+		if (prevPage > 0) {
+			props.dispatch({
+				type: "CHANGE_PAGE",
+				newPageNum: prevPage
+			});
 		}
 	};
 
 	render () {
 		const props:any = this.props;
+		const numOfRecords:number = props.moviesDB.length;
+		const numOfPages:number = Math.ceil(numOfRecords / props.recordsPerPage);
 		return (
 			<>
 				<table className="tableFrame">
@@ -24,7 +50,14 @@ class TableFrame extends React.Component {
 						{ this.tableBodyContent() }
 					</tbody>
 				</table>
-				<div>Number of records: {props.moviesDB.length}</div>
+				<div>
+					<div className="numOfRecordsHolder">Number of records: {numOfRecords}</div>
+					<div className="pageNavigation">
+						<button onClick={() => {this.decrementPage()}}>Previous</button>
+						<span>Page {props.currentPage} of {numOfPages}</span>
+						<button onClick={() => {this.incrementPage(numOfPages)}}>Next</button>
+					</div>
+				</div>
 			</>
 		);
 	}
