@@ -153,3 +153,5 @@ const App = () => (
 );
 
 ReactDOM.render(<App />, document.getElementById("moviesTable"));
+
+export default App
