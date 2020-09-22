@@ -8,7 +8,9 @@ const AppUtils:any = {
 		moviesDB: state.moviesDB,
 		sortByColumn: state.sortByColumn,
 		currentPage: state.currentPage,
-		recordsPerPage: state.recordsPerPage
+		recordsPerPage: state.recordsPerPage,
+		showForm: state.showForm,
+		recordIndexForEdit: state.recordIndexForEdit
 	}),
 
 	prettifyHeaderName: (uglyName:string) => {

@@ -4,19 +4,26 @@ import AppUtils from '../app-utils';
 import MovieRecord from '../inerfaces/MovieRecord';
 
 class TableRows extends React.Component {
-	editRecord () {
-		
-	};
-
-	deleteRecord (movieID:number) {
+	deleteRecord (movie:MovieRecord) {
 		const props:any = this.props;
-		const recordIndex:number = AppUtils.getIndexOfRecord(props.moviesDB, "id", movieID);
-		if (recordIndex >= 0) {
+		const recordIndex:number = AppUtils.getIndexOfRecord(props.moviesDB, "id", movie.id);
+		const answer:boolean = window.confirm("You are about to delete record '" + movie.title + "'!");
+		if (recordIndex >= 0 && answer) {
 			props.dispatch({
 				type: "DELETE_RECORD",
 				recordIndex: recordIndex
 			});
 		}
+	};
+
+	editRecord (movieID:number) {
+		const props:any = this.props;
+		const recordIndex:number = AppUtils.getIndexOfRecord(props.moviesDB, "id", movieID);
+		props.dispatch({ 
+			type: "TOGGLE_FORM_DISPLAY",
+			showForm: true,
+			recordIndexForEdit: recordIndex
+		});
 	};
 	
 	render () {
@@ -33,8 +40,8 @@ class TableRows extends React.Component {
 					<td>{movie.imdb_rating}</td>
 					<td>{movie.imdb_votes}</td>
 					<td className="recordActions">
-						<button onClick={() => {this.editRecord()}}>Edit</button>
-						<button onClick={() => {this.deleteRecord(movie.id)}}>Delete</button>
+						<button onClick={() => {this.editRecord(movie.id)}}>Edit</button>
+						<button onClick={() => {this.deleteRecord(movie)}}>Delete</button>
 					</td>
 				</tr>
 			} else {

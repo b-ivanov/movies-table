@@ -1,7 +1,22 @@
+html, body {
+	margin: 0px;
+	padding: 0px;
+}
+
+h1 {
+	padding: 20px;
+	margin: 0px;
+}
+
+.hiddenElement {
+	display: none !important;
+}
+
 .tableFrame {
 	border-collapse: separate;
 	border-spacing: 0px 0px;
 	width: 100%;
+	padding: 0px 20px;
 }
 
 .tableFrame th {
@@ -9,12 +24,13 @@
 	vertical-align: bottom;
 	text-align: left;
 	position: sticky;
+	z-index: 1;
 	top: 0;
 	background-color: #FFF;
 }
 
 .tableFrame th.headerClearFilter {
-	width: 160px;
+	width: 190px;
 }
 .tableFrame td {
 	height: 25px;
@@ -46,17 +62,51 @@
 	display: table-cell;
 }
 
-.tableFrame td.recordActions {
+td.recordActions {
 	display: none;
 }
 
-.numOfRecordsHolder {
+.footer {
+	padding: 20px;
+	height: 20px;
+}
+
+.footer .numOfRecordsHolder {
 	float: left;
 	width: 50%;
 }
 
-.pageNavigation {
+.footer .pageNavigation {
 	float: right;
 	text-align: right;
 	width: 50%;
+}
+
+.formOverlay {
+	background-color: #FFFFFFCC;
+	position: absolute;
+	z-index: 5;
+	width: 100%;
+	height: 100%;
+}
+
+.formOverlay .recordEditForm {
+	width: 20%;
+	min-width: 300px;
+	margin: 50px auto;
+	padding: 20px;
+	border-radius: 5px;
+	border: 1px solid #000;
+	background-color: #FFFFFF;
+}
+
+.recordEditForm label{
+	display: block;
+	width: 100%;
+}
+
+.recordEditForm input{
+	display: block;
+	width: calc(100% - 8px);
+	margin-bottom: 10px;
 }

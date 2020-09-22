@@ -52,6 +52,15 @@ class HeaderRow extends React.Component {
 		}
 	};
 
+	createNewRecord () {
+		const props:any = this.props;
+		props.dispatch({ 
+			type: "TOGGLE_FORM_DISPLAY",
+			showForm: true,
+			recordIndexForEdit: null
+		});
+	};
+
 	claearFilters () {
 		const tableRowInputs:any = document.body.querySelectorAll("input");
 		for (const key in tableRowInputs) {
@@ -96,7 +105,10 @@ class HeaderRow extends React.Component {
 						</th>)
 					})
 				}
-				<th className="headerClearFilter"><button onClick={() => {this.claearFilters()}}>Clear filters</button></th>
+				<th className="headerClearFilter">
+					<button onClick={() => {this.claearFilters()}}>Clear filters</button>
+					<button onClick={() => {this.createNewRecord()}}>Create record</button>
+				</th>
 			</tr>
 		);
 	}

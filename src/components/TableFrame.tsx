@@ -42,6 +42,7 @@ class TableFrame extends React.Component {
 		const numOfPages:number = Math.ceil(numOfRecords / props.recordsPerPage);
 		return (
 			<>
+				<h1>My movie database</h1>
 				<table className="tableFrame">
 					<thead>
 						<HeaderRow />
@@ -50,7 +51,7 @@ class TableFrame extends React.Component {
 						{ this.tableBodyContent() }
 					</tbody>
 				</table>
-				<div>
+				<div className="footer">
 					<div className="numOfRecordsHolder">Number of records: {numOfRecords}</div>
 					<div className="pageNavigation">
 						<button onClick={() => {this.decrementPage()}}>Previous</button>
