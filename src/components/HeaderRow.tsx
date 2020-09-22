@@ -96,7 +96,7 @@ class HeaderRow extends React.Component {
 						</th>)
 					})
 				}
-				<th><button onClick={() => {this.claearFilters()}}>Clear filters</button></th>
+				<th className="headerClearFilter"><button onClick={() => {this.claearFilters()}}>Clear filters</button></th>
 			</tr>
 		);
 	}

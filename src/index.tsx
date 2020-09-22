@@ -55,9 +55,23 @@ const reducer = (state:any = initialState, action:any) => {
 		case "CHANGE_PAGE":
 			if (action.newPageNum) {
 				return {
-					moviesDB: moviesJSON,
+					moviesDB: state.moviesDB,
 					sortByColumn: state.sortByColumn,
 					currentPage: action.newPageNum,
+					recordsPerPage: state.recordsPerPage
+				};
+			}
+			break;
+		case "DELETE_RECORD":
+			if (action.recordIndex >= 0) {
+				let movies:any[] = state.moviesDB;
+				movies = movies.filter((elem, index) => {
+					return (action.recordIndex !== index);
+				});
+				return {
+					moviesDB: movies,
+					sortByColumn: state.sortByColumn,
+					currentPage: state.currentPage,
 					recordsPerPage: state.recordsPerPage
 				};
 			}

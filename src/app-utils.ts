@@ -79,6 +79,15 @@ const AppUtils:any = {
 		}
 		const filterFunction:any = new Function("movie", "return " + functionBody.join(" && ") + ";");
 		return filterFunction;
+	},
+
+	getIndexOfRecord: (collection:any[], key:string, val:any) => {
+		for (let index = 0; index < collection.length; index++) {
+			if (collection[index][key] === val) {
+				return index;
+			}
+		}
+		return -1;
 	}
 };
 
