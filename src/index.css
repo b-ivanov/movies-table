@@ -43,10 +43,19 @@ h1 {
 	display: inline-block;
 }
 
-.tableFrame td {
-	height: 40px;
-	padding: 0px 10px;
-	border-bottom: 1px solid #efefef;
+@media all and (max-width: 1200px) {
+	.tableFrame td {
+		height: 80px;
+		padding: 0px 10px;
+		border-bottom: 1px solid #efefef;
+	}
+}
+@media all and (min-width: 1200px) {
+	.tableFrame td {
+		height: 40px;
+		padding: 0px 10px;
+		border-bottom: 1px solid #efefef;
+	}
 }
 
 .tableFrame th {
@@ -80,6 +89,12 @@ h1 {
 
 .tableFrame th.headerClearFilter button.uiBtn {
 	background-color: #858585;
+}
+
+@media all and (max-width: 1200px) {
+	.tableFrame th.headerClearFilter button.uiBtn:first-of-type {
+		margin-bottom: 5px;
+	}
 }
 
 .tableFrame th svg {
@@ -222,17 +237,15 @@ td.recordActions button {
 
 button.uiBtn {
 	outline: none;
-	border: none;
-	background: none;
-	background-color: #709de0;
-	font-weight: 600;
-	color: #FFF;
-	height: 30px;
-	border-radius: 5px;
-	border: 1px solid #f7f7f7;
-	padding: 0px 10px;
-	cursor: pointer;
-	margin-right: 10px
+    background: none;
+    background-color: #709de0;
+    font-weight: 600;
+    color: #FFF;
+    border-radius: 5px;
+    border: 1px solid #f7f7f7;
+    padding: 7px 10px;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 button.uiBtn:hover {
