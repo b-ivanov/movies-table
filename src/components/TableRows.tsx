@@ -44,8 +44,8 @@ class TableRows extends React.Component {
 					<td>{movie.imdb_rating}</td>
 					<td>{movie.imdb_votes}</td>
 					<td className="recordActions">
-						<button onClick={() => {this.editRecord(movie.id)}}>Edit</button>
-						<button onClick={() => {this.deleteRecord(movie)}}>Delete</button>
+						<button className="uiBtn orange" onClick={() => {this.editRecord(movie.id)}}>Edit</button>
+						<button className="uiBtn red" onClick={() => {this.deleteRecord(movie)}}>Delete</button>
 					</td>
 				</tr>
 			} else {

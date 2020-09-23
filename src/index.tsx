@@ -14,7 +14,7 @@ const initialState = {
   moviesDB: moviesJSON,
   sortByColumn: "title",
   currentPage: 1,
-  recordsPerPage: 20,
+  recordsPerPage: 10,
   showForm: false,
   recordIndexForEdit: null
 };

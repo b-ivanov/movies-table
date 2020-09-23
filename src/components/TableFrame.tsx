@@ -59,9 +59,9 @@ class TableFrame extends React.Component {
 				<div className="footer">
 					<div className="numOfRecordsHolder">Number of records: {numOfRecords}</div>
 					<div className="pageNavigation">
-						<button onClick={() => {this.decrementPage()}}>Previous</button>
+						<button className="uiBtn" onClick={() => {this.decrementPage()}}>Previous</button>
 						<span>Page {props.currentPage} of {numOfPages}</span>
-						<button onClick={() => {this.incrementPage(numOfPages)}}>Next</button>
+						<button className="uiBtn" onClick={() => {this.incrementPage(numOfPages)}}>Next</button>
 					</div>
 				</div>
 			</>

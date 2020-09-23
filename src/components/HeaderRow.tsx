@@ -70,12 +70,12 @@ class HeaderRow extends React.Component {
 	filterInput (property:string) {
 		const isText:boolean = (AppUtils.getPropertyType(property) === "string");
 		if (isText) {
-			return <input placeholder="name" className="textFilter" name={property} type="text" onChange={(event:any) => {this.toggleFilter(event)}}/>
+			return <input placeholder={"Filter by " + property} className="textFilter" name={property} type="text" onChange={(event:any) => {this.toggleFilter(event)}}/>
 		} else {
 			return (<>
-				<input placeholder="min" className="numberFilter" name={property + "_min"} type="number" min="0" onChange={(event:any) => {this.toggleFilter(event)}}/>
-				-
-				<input placeholder="max" className="numberFilter" name={property + "_max"} type="number" min="0" onChange={(event:any) => {this.toggleFilter(event)}}/>
+				<input placeholder="Minimum value" className="numberFilter" name={property + "_min"} type="number" min="0" onChange={(event:any) => {this.toggleFilter(event)}}/>
+				<span> - </span>
+				<input placeholder="Maximum value" className="numberFilter" name={property + "_max"} type="number" min="0" onChange={(event:any) => {this.toggleFilter(event)}}/>
 			</>)
 		}
 	};
@@ -113,8 +113,8 @@ class HeaderRow extends React.Component {
 					})
 				}
 				<th className="headerClearFilter">
-					<button onClick={() => {this.claearFilters()}}>Clear filters</button>
-					<button onClick={() => {this.createNewRecord()}}>Create record</button>
+					<button className="uiBtn" onClick={() => {this.claearFilters()}}>Clear filters</button>
+					<button className="uiBtn" onClick={() => {this.createNewRecord()}}>Add record</button>
 				</th>
 			</tr>
 		);

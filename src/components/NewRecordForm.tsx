@@ -99,8 +99,6 @@ class NewRecordForm extends React.Component {
 			return (<div className="formOverlay">
 				<form className="recordEditForm">
 					<h1>{heading}</h1>
-					<label className="hiddenElement">ID</label>
-					<input className="hiddenElement" name="id" type="number" defaultValue={dummyRecord.id}/>
 					<label>Title</label>
 					<input name="title" type="text" placeholder="The punisher" onFocus={(event:any) => {this.removeRedBorder(event)}} defaultValue={dummyRecord.title}/>
 					<label>Director</label>
@@ -111,8 +109,12 @@ class NewRecordForm extends React.Component {
 					<input name="imdb_rating" type="number" min="0" max="10" step='0.1' placeholder="8.5" onFocus={(event:any) => {this.removeRedBorder(event)}} defaultValue={dummyRecord.imdb_rating}/>
 					<label>IMDB Votes</label>
 					<input name="imdb_votes" type="number" min="0" step='1' placeholder="175879" onFocus={(event:any) => {this.removeRedBorder(event)}} defaultValue={dummyRecord.imdb_votes}/>
-					<button onClick={(event:any) => {this.submitNewData(event, recordInd)}}>Save</button>
-					<button onClick={() => {this.closeForm()}}>Cancel</button>
+					<label className="hiddenElement">ID</label>
+					<input className="hiddenElement" name="id" type="number" defaultValue={dummyRecord.id}/>
+					<div className="buttonsContainer">
+						<button className="uiBtn green" onClick={(event:any) => {this.submitNewData(event, recordInd)}}>Save</button>
+						<button className="uiBtn" onClick={() => {this.closeForm()}}>Cancel</button>
+					</div>
 				</form>
 			</div>);
 		} else {
